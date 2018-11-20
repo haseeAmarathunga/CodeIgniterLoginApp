@@ -25,11 +25,15 @@ class Auth extends CI_Controller
                 );
 
                 $email=$_POST['email'];
+                $username=$_POST['username'];
+
                 $sql = "SELECT * FROM users WHERE email='$email'";
+                $sql2 = "SELECT * FROM users WHERE username='$username'";
 
                 $query = $this->db->query($sql); 
+                $query2 = $this->db->query($sql2); 
                 
-                if ($query->num_rows() == 0) {
+                if ($query->num_rows() == 0 && $query2->num_rows() == 0) {
         
                     //add to database
                     $this->db->insert('users',$data);
@@ -37,7 +41,7 @@ class Auth extends CI_Controller
                     redirect('auth/registration','refresh');
         
                 }else{
-                    $this->session->set_flashdata('error','Your email has already registered!');
+                    $this->session->set_flashdata('error','Your email or username has already registered!');
                     redirect('auth/registration','refresh');
                 }
 
