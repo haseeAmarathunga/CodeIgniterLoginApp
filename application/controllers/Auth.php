@@ -8,7 +8,7 @@ class Auth extends CI_Controller
         {
             $this->form_validation->set_rules('username','Username','required');
             $this->form_validation->set_rules('password','Password','required|min_length[5]');
-            $this->form_validation->set_rules('password','PasswordConfirm','required|min_length[5]|matches[Password]');
+            $this->form_validation->set_rules('password','Confirm Password','required|min_length[5]|matches[password]');
 
             //if form validate is true
             if($this->form_validation->run()==TRUE){
@@ -18,8 +18,31 @@ class Auth extends CI_Controller
                     'firstname'=>$_POST['firstname'],
                     'lastname'=>$_POST['lastname'],
                     'department'=>$_POST['department'],
+                    'username'=>$_POST['username'],
+                    'password'=>$_POST['password'],
+                    'email'=>$_POST['email'],
+                    'mobile'=>$_POST['mobile']
                 );
-                $this->insert('users',$data);
+
+                $email=$_POST['email'];
+                $sql = "SELECT * FROM users WHERE email='$email'";
+
+                $query = $this->db->query($sql); 
+                
+                if ($query->num_rows() == 0) {
+        
+                    //add to database
+                    $this->db->insert('users',$data);
+                    $this->session->set_flashdata('success','Your account has been created successfull!');
+                    redirect('auth/registration','refresh');
+        
+                }else{
+                    $this->session->set_flashdata('error','Your email has already registered!');
+                    redirect('auth/registration','refresh');
+                }
+
+
+                
             }
         }
         $this->load->view('registration');

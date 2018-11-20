@@ -39,8 +39,15 @@
     <center><h1><span>Registration</span></h1>
     <hr>
 
-    <?php echo validation_errors('<div class="alert alert-danger">','</div>');?>
+    <?php if (isset($_SESSION['success']) || isset($_SESSION['error'])) {?>
+        <div class="alert alert-success"><?php echo $_SESSION['success'];?></div>
+        <div class="alert alert-danger"><?php echo $_SESSION['error'];?></div>
 
+    <?php
+
+    } ?>
+    <?php echo validation_errors('<div class="alert alert-danger">','</div>');?>
+    
     <form action="" method="POST"> 
     <div class="form-group row flex-v-center">
         <div class="col-xs-2 col-sm-4">
@@ -119,8 +126,8 @@
         <div class="col-xs-6">
         <p class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input type="password" class="form-control" name="PasswordConfirm" 
-                id="PasswordConfirm" placeholder="Confirm password" required="required">             
+                <input type="password" class="form-control" name="password2" 
+                id="password" placeholder="Confirm password" required="required">             
             </p>
         </div> 
     </div>
