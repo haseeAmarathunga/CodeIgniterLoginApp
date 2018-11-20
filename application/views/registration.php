@@ -39,6 +39,7 @@
     <center><h1><span>Registration</span></h1>
     <hr>
 
+    <!-- show the success message if data is valid and add to users table -->
     <?php if (isset($_SESSION['success'])) {?>
         <div class="alert alert-success"><?php echo $_SESSION['success'];?></div>
 
@@ -46,6 +47,7 @@
 
     } ?>
 
+    <!-- show the error that email or username is existed in users table -->
     <?php if (isset($_SESSION['error'])) {?>
         <div class="alert alert-danger"><?php echo $_SESSION['error'];?></div>
 
@@ -53,8 +55,10 @@
 
     } ?>
 
+    <!-- show the validation error like password not matched -->
     <?php echo validation_errors('<div class="alert alert-danger">','</div>');?>
     
+    <!-- form layout -->
     <form action="" method="POST"> 
     <div class="form-group row flex-v-center">
         <div class="col-xs-2 col-sm-4">

@@ -33,10 +33,11 @@ class Auth extends CI_Controller
                 $query = $this->db->query($sql); 
                 $query2 = $this->db->query($sql2); 
                 
+                //check if username or email is existed in user table
                 if ($query->num_rows() == 0 && $query2->num_rows() == 0) {
         
                     //add to database
-                    $this->db->insert('users',$data);
+                    $this->db->insert('users',$data);//insert data to users table
                     $this->session->set_flashdata('success','Your account has been created successfull!');
                     redirect('auth/registration','refresh');
         
